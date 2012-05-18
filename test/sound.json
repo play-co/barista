@@ -14,7 +14,7 @@
 		"enabled",
 		"globalVolume"
 	],
-	"templateProperties": [
+	"templates": [
 		"sub1",
 		"sub2"
 	]

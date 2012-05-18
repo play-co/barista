@@ -1,0 +1,3 @@
+{#properties}
+{name}->SetAccessor(v8::String::New("{.}"), accessor_{.});
+{/properties}

@@ -1,7 +1,5 @@
 var fs = require('fs');
-
-var templates = ['objectTemplate', 'method'];
-
+var templates = require('./templates').templates;
 
 var _load = function(engineName, templateName) {
 	var templatePath = __dirname + '/engines/' + engineName + '/' + templateName + '.bar';
@@ -10,6 +8,7 @@ var _load = function(engineName, templateName) {
 };
 exports.load = function(engineName) {
 	var engine = {};
+	console.log(templates);
 	templates.forEach(function(template) {
 		engine[template] = _load(engineName, template);
 	});
@@ -17,8 +16,23 @@ exports.load = function(engineName) {
 	return engine;
 };
 
+
+exports.create = function(name) {
+	enginePath = __dirname + '/engines/' + name;
+	fs.mkdirSync(enginePath);
+	
+	templates.forEach(function(template) {
+		fs.writeFileSync(enginePath + '/' + template + '.bar', '');	
+	});
+};
+
 if (require.main === module) {
-	var engine = exports.load('spidermonkey');
-	console.log(engine);
+	var command = process.argv[2];
+	if (command === 'create') {
+		var name = process.argv[3];
+		if (name) {
+			exports.create(name);
+		}
+	}
 
 }
