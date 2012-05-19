@@ -56,19 +56,30 @@ exports.run = function(engineName, fileName) {
 	var desc = JSON.parse(contents);
 	if (desc.type == 'objectTemplate') {
 		objectTemplate(desc, function(err, result) {
-			console.log(result);	
+			if (err) {
+				console.log('error', err);
+			}
+			console.log(result);
 		});
 	}
 };
 
 
 var autoProperties = function(desc) {
-	merge(desc.properties, desc.autoProperties);
-	desc.autoProperties.forEach(function(prop) {
-		prop.type = types[prop.type];
-	});
+	console.log('autoprops');
+	if (desc.autoProperties) {
+		console.log('have them');
+		merge(desc.properties, desc.autoProperties);
+		desc.autoProperties.forEach(function(prop) {
+			prop.type = types[prop.type];
+		});
+	}
 	return function(cb) {
-		return dust.render('autoProperty', desc, cb);
+		if (desc.autoProperties) {
+			dust.render('autoProperty', desc, cb);
+		} else {
+			cb(null, null);
+		}
 	};
 };
 var objectTemplate = function(desc, cb) {
@@ -86,6 +97,8 @@ var objectTemplate = function(desc, cb) {
 			render('objectTemplate', desc, function(err, result) {
 				cb(err, result);
 			});
+		} else {
+			console.log('error', err);
 		}
 	});
 	

@@ -3,12 +3,20 @@
 
 {autoProperties}
 
-v8::Handle<v8::ObjectTemplate> js_{name}_get_template() {
-	v8::Handle<v8::ObjectTemplate> {name} = ObjectTemplate::New();
-
+v8::Handle<v8::Value> js_{name}_constructor(const v8::Arguments &args);
+v8::Handle<v8::FunctionTemplate> js_{name}_get_template() {
+	v8::Handle<v8::FunctionTemplate> templ = v8::FunctionTemplate::New();
+	v8::Handle<v8::ObjectTemplate> {name} = templ->InstanceTemplate();
+	{name}->SetInternalFieldCount(2);
+	{#autoProperties}
+	templ->SetCallHandle(js_{name}_constructor);	
+	{/autoProperties}
+	
 	{methods}
 	{properties}
 	{templates}
+
+
 
 	return {name};
 }
