@@ -4,9 +4,17 @@ var dust = require('dustjs-linkedin');
 var async = require('async');
 
 var templates = require('./templates').templates;
+var types = require('./types').types;
 dust.escapeHtml = function(s) { return s; };
 dust.optimizers.format = function(ctx, node) { return node; };
 
+
+//TODO
+//check for dependencies?
+//generate file and header
+//add struct_wrapper functionality
+//LATER
+//generate the struct?
 var merge = function(a, b) {
 	for (var k in b) {
 		if (a[k] === undefined) {
@@ -53,9 +61,20 @@ exports.run = function(engineName, fileName) {
 	}
 };
 
+
+var autoProperties = function(desc) {
+	merge(desc.properties, desc.autoProperties);
+	desc.autoProperties.forEach(function(prop) {
+		prop.type = types[prop.type];
+	});
+	return function(cb) {
+		return dust.render('autoProperty', desc, cb);
+	};
+};
 var objectTemplate = function(desc, cb) {
 	async.parallel({
 		methods: render('method', desc),
+		autoProperties: autoProperties(desc),
 		properties: render('property', desc),
 		templates: render('template', desc)
 	},
@@ -63,6 +82,7 @@ var objectTemplate = function(desc, cb) {
 		if (!err) {
 			console.log(results);
 			desc = merge(results, desc);
+			merge(results.properties, results.autoProperties);
 			render('objectTemplate', desc, function(err, result) {
 				cb(err, result);
 			});
