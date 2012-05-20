@@ -8,7 +8,6 @@ var _load = function(engineName, templateName) {
 };
 exports.load = function(engineName) {
 	var engine = {};
-	console.log(templates);
 	templates.forEach(function(template) {
 		engine[template] = _load(engineName, template);
 	});

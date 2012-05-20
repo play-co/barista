@@ -27,8 +27,6 @@ var merge = function(a, b) {
 };
 
 var render = function(name, desc, cb) {
-	console.log('rendering', name);
-	console.log(desc);
 	var fn =  function(cb) {
 		return dust.render(name, desc, cb);
 	};
@@ -41,9 +39,7 @@ var render = function(name, desc, cb) {
 
 var loadTemplates = function(engineName) {
 	var e = engine.load(engineName);
-	console.log(templates);
 	templates.forEach(function(template) {
-		console.log('compiling', e[template], template);
 		var compiled = dust.compile(e[template], template);	
 		if (compiled) {
 			dust.loadSource(compiled);
@@ -68,9 +64,7 @@ exports.run = function(engineName, fileName) {
 
 
 var autoProperties = function(desc) {
-	console.log('autoprops');
 	if (desc.autoProperties) {
-		console.log('have them');
 		merge(desc.properties, desc.autoProperties);
 		desc.autoProperties.forEach(function(prop) {
 			prop.type = types[prop.type];
@@ -93,7 +87,6 @@ var objectTemplate = function(desc, cb) {
 	},
 	function(err, results) {
 		if (!err) {
-			console.log(results);
 			desc = merge(results, desc);
 			merge(results.properties, results.autoProperties);
 			render('objectTemplate', desc, function(err, result) {
