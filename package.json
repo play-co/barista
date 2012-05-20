@@ -1,0 +1,21 @@
+{
+  "author": "Tom Fairfield <fairfieldt@gameclosure.com>",
+  "name": "barista",
+  "description": "serving you JS just to your specification",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fairfieldt/barista.git"
+  },
+  "main": "barista",
+  "dependencies": {
+  	"optimist": ">=0.3.4",
+	"async": ">=0.1.18",
+	"dustjs-linkedin": ">=0.4.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
