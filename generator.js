@@ -10,11 +10,13 @@ dust.optimizers.format = function(ctx, node) { return node; };
 
 
 //TODO
-//check for dependencies?
 //generate file and header
-//add struct_wrapper functionality
+//add support for custom type setters/getters
+//wrap in an easy to use commandline interface
+//convert android project to this
 //LATER
 //generate the struct?
+//check for dependencies?
 var merge = function(a, b) {
 	for (var k in b) {
 		if (a[k] === undefined) {
