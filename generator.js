@@ -4,10 +4,6 @@ var dust = require('dustjs-linkedin');
 var async = require('async');
 
 var templates = require('./templates').templates;
-var typeInfo = require('./types');
-var types = typeInfo.types;
-var customSetters = typeInfo.customSetters;
-var customGetters = typeInfo.customGetters;
 
 dust.escapeHtml = function(s) { return s; };
 dust.optimizers.format = function(ctx, node) { return node; };
@@ -15,7 +11,6 @@ dust.optimizers.format = function(ctx, node) { return node; };
 
 //TODO
 //generate file and header
-//add support for custom type setters/getters
 //convert android project to this
 //LATER
 //generate the struct?
@@ -40,6 +35,16 @@ var render = function(name, desc, cb) {
 	}
 };
 
+var loadCustom = function(type, engine) {
+	type = 'custom' + type;
+	for (var k in engine[type + 's']) {
+		var name = type + '_' + k;
+		var compiled = dust.compile(engine[type + 's'][k], name);
+		if (compiled) {
+			dust.loadSource(compiled);
+		}
+	}
+};
 var loadTemplates = function(engineName) {
 	var e = engine.load(engineName);
 	templates.forEach(function(template) {
@@ -48,9 +53,21 @@ var loadTemplates = function(engineName) {
 			dust.loadSource(compiled);
 		}
 	});
+	loadCustom('Setter', e);
+	loadCustom('Getter', e);
 	return e;
 };
 
+var writeFiles = function(objectName, contents) {
+	var fileName = './out/js_' + objectName + '.gen.cpp';
+	fs.writeFile(fileName, contents, function(err, out) {
+		if (!err) {
+			console.log('wrote file');
+		} else {
+			console.log(err);
+		}
+	});
+};
 exports.run = function(engineName, fileName) {
 	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
@@ -60,7 +77,7 @@ exports.run = function(engineName, fileName) {
 			if (err) {
 				console.log('error', err);
 			}
-			console.log(result);
+			writeFiles(desc.name, result);
 		});
 	}
 };
@@ -72,30 +89,29 @@ var autoProperties = function(engine, desc) {
 			desc.properties.push(prop.name);
 		});
 		desc.autoProperties.forEach(function(prop) {
-			console.log('looking for ', prop.type);
-			console.dir(types);
-			var type = types[prop.type];
-			console.log('type is', type);
+			var type = engine.types[prop.type];
 			var customSetter = engine.customSetters[type];
 			var customGetter = engine.customGetters[type];
 			if (customSetter) {
-				console.log('has a custom setter!');
 				prop.customSetter = customSetter;
 			}
 			if (customGetter) {
 				prop.customGetter = customGetter;
 			}
-			prop.type = type;
+			prop.jsType = type;
 		});
 	}
 	return function(cb) {
 		var renderFuncs = [];
 		desc.autoProperties.forEach(function(prop) {
 			['customSetter', 'customGetter'].forEach(function(type) {
+				var templateName = type + '_' + prop.jsType;
 				renderFuncs.push(function(cb) {
-					render(type, prop, function(err, result) {
-						prop[type] = result;	
-						cb(err, result);
+					render(templateName, prop, function(err, result) {
+						if (!err) {
+							prop[type] = result;
+						}
+						cb(null, result);
 					});
 				});
 			});

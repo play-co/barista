@@ -24,6 +24,7 @@ exports.load = function(engineName, cb) {
 			engine[type][template.slice(0, -4)] = _load(engineName, type + '/' + template);
 		});
 	});
+	engine.types = require(buildPath(engineName, 'types.js')).types;
 	return engine;
 };
 
