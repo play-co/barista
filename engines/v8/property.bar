@@ -1,3 +1,3 @@
 {#properties}
-{name}->SetAccessor(v8::String::New("{.}"), accessor_{.});
+{name}->SetAccessor(v8::String::New("{.}"), js_{name}_get_{.}, js_{name}_set_{.});
 {/properties}

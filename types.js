@@ -11,5 +11,3 @@ exports.types = {
     'char *': 'String',
     'rgba': 'String'
 };
-
-

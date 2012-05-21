@@ -2,13 +2,21 @@
 v8::Handle<v8::Value> js_{obj_name}_get_{.name}(v8::Local<String> property, const v8::AccessorInfo &info) {
 	v8::Local<v8::Object> thiz = info.Holder();
 	{obj_name} *obj = ({obj_name}*) v8::Local<v8::External>::Cast(thiz->GetInternalField(0))->Value();
+	{#customGetter}
+	{.}
+	{:else}
 	{.type} prop = obj->{.name};
 	return v8::{.type_name}::New(prop);
+	{/customGetter}
 }
 
 void js_{obj_name}_set_{name}(v8::Local<v8::String> property, v8::Local<v8::Value> value, const v8::AccessorInfo &info) {
 	v8::Local<v8::Object> thiz = info.Holder();
 	{obj_name} *obj = ({obj_name}*) v8::Local<v8::External>::Cast(thiz->GetInternalField(0))->Value();
+	{#customSetter}
+	{.}
+	{:else}
 	obj->{name} = value->To{.type}()->Value();
+	{/customSetter}
 }
 {/autoProperties}

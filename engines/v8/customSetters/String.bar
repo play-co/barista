@@ -1,0 +1,4 @@
+if (obj->{name} {
+	free(obj->{name});
+}
+obj->{name} = strdup(str);

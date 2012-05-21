@@ -26,6 +26,10 @@
 		{
 			"type": "bool",
 			"name": "muted"
+		},
+		{
+			"type": "char*",
+			"name": "foo"
 		}
 	]
 }

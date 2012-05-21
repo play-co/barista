@@ -4,7 +4,11 @@ var dust = require('dustjs-linkedin');
 var async = require('async');
 
 var templates = require('./templates').templates;
-var types = require('./types').types;
+var typeInfo = require('./types');
+var types = typeInfo.types;
+var customSetters = typeInfo.customSetters;
+var customGetters = typeInfo.customGetters;
+
 dust.escapeHtml = function(s) { return s; };
 dust.optimizers.format = function(ctx, node) { return node; };
 
@@ -12,7 +16,6 @@ dust.optimizers.format = function(ctx, node) { return node; };
 //TODO
 //generate file and header
 //add support for custom type setters/getters
-//wrap in an easy to use commandline interface
 //convert android project to this
 //LATER
 //generate the struct?
@@ -44,16 +47,16 @@ var loadTemplates = function(engineName) {
 		if (compiled) {
 			dust.loadSource(compiled);
 		}
-
 	});
+	return e;
 };
 
 exports.run = function(engineName, fileName) {
-	loadTemplates(engineName);
+	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
 	var desc = JSON.parse(contents);
 	if (desc.type == 'objectTemplate') {
-		objectTemplate(desc, function(err, result) {
+		objectTemplate(engine, desc, function(err, result) {
 			if (err) {
 				console.log('error', err);
 			}
@@ -63,25 +66,54 @@ exports.run = function(engineName, fileName) {
 };
 
 
-var autoProperties = function(desc) {
+var autoProperties = function(engine, desc) {
 	if (desc.autoProperties) {
-		merge(desc.properties, desc.autoProperties);
 		desc.autoProperties.forEach(function(prop) {
-			prop.type = types[prop.type];
+			desc.properties.push(prop.name);
+		});
+		desc.autoProperties.forEach(function(prop) {
+			console.log('looking for ', prop.type);
+			console.dir(types);
+			var type = types[prop.type];
+			console.log('type is', type);
+			var customSetter = engine.customSetters[type];
+			var customGetter = engine.customGetters[type];
+			if (customSetter) {
+				console.log('has a custom setter!');
+				prop.customSetter = customSetter;
+			}
+			if (customGetter) {
+				prop.customGetter = customGetter;
+			}
+			prop.type = type;
 		});
 	}
 	return function(cb) {
+		var renderFuncs = [];
+		desc.autoProperties.forEach(function(prop) {
+			['customSetter', 'customGetter'].forEach(function(type) {
+				renderFuncs.push(function(cb) {
+					render(type, prop, function(err, result) {
+						prop[type] = result;	
+						cb(err, result);
+					});
+				});
+			});
+		});
 		if (desc.autoProperties) {
-			dust.render('autoProperty', desc, cb);
+			async.parallel(renderFuncs, function(err, result) {
+				render('autoProperty', desc, cb);
+			});
 		} else {
 			cb(null, null);
 		}
 	};
 };
-var objectTemplate = function(desc, cb) {
+
+var objectTemplate = function(engine, desc, cb) {
 	async.parallel({
 		methods: render('method', desc),
-		autoProperties: autoProperties(desc),
+		autoProperties: autoProperties(engine, desc),
 		properties: render('property', desc),
 		templates: render('template', desc)
 	},
