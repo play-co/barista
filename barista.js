@@ -7,8 +7,8 @@ var argv = require('optimist')
 	.alias('e', 'engine')
 	.describe('e', 'the engine to generate object wrappers for')
 	.string('e')
-	.describe('f', 'the file describing the object to be wrapped')
 	.alias('c', '--create')
+	.describe('c', 'create templates for a new engine')
 	.argv;
 
 
