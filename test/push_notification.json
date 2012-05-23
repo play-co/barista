@@ -1,0 +1,8 @@
+{
+	"type": "objectTemplate",
+	"name": "pushNotification",
+	"methods": [
+		"disableNotifications",
+		"enableNotifications"
+	]
+}

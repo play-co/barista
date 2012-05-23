@@ -9,27 +9,5 @@
 		"stopSound",
 		"pauseSound",
 		"setVolume"
-	],
-	"properties": [
-		"enabled",
-		"globalVolume"
-	],
-	"templates": [
-		"sub1",
-		"sub2"
-	],
-	"autoProperties": [
-		{
-			"type": "double",
-			"name": "volume"
-		},
-		{
-			"type": "bool",
-			"name": "muted"
-		},
-		{
-			"type": "char*",
-			"name": "foo"
-		}
 	]
 }

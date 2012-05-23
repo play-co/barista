@@ -1,0 +1,13 @@
+{
+	"type": "objectTemplate",
+	"name": "xhr",
+	"methods": [
+		"send"
+	],
+	"properties": [
+	],
+	"templates": [
+	],
+	"autoProperties": [
+	]
+}

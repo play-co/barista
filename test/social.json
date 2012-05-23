@@ -1,0 +1,27 @@
+{
+	"type": "objectTemplate",
+	"name": "social",
+	"methods": [
+		"show",
+		"postUpdate",
+		"postScore",
+		"favoriteUser",
+		"awardAchievement",
+		"removeAchievement",
+		"_getUser",
+		"_updateUser",
+		"_getFriends",
+		"_getFollowers",
+		"_getUserActivity",
+		"_getFeed",
+		"_getScores",
+		"_getFriendsScores",
+		"_sendInvite",
+		"_acceptInvite",
+		"_getAchievements",
+		"_getRewardedAchievements",
+		"_getConversations",
+		"_getMessages",
+		"_sendMessage"
+	]
+}

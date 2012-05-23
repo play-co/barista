@@ -1,0 +1,17 @@
+{
+	"type": "objectTemplate",
+	"name": "socket",
+	"methods": [
+		"send",
+		"close",
+		"onConnect",
+		"onRead",
+		"onClose"
+	],
+	"autoProperties": [
+		{
+			"type": "int",
+			"name": "__id"
+		}	
+	]
+}

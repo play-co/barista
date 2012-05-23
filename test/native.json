@@ -1,0 +1,56 @@
+{
+	"type": "objectTemplate",
+	"name": "NATIVE",
+
+	"methods": [
+		 "getFileSync",
+		 "eval",
+		 "startGame",
+		 "doneLoading",
+		 "applyUpdate",
+		 "Socket",
+		 "sendActivityToBack",
+		 "uploadContacts",
+		 "uploadDeviceInfo",
+		 "getCurrentTimeMicroseconds"
+	],
+	"templates": [
+		"console",
+		"gl",
+		"localStorage",
+		"sound",
+		"overlay",
+		"contacts",
+		"alerts",
+		"purchase",
+		"profile",
+		"device",
+		"textbox",
+		"notifications",
+		"dialogs",
+		"haptics",
+		"tapjoy",
+		"flurry",
+		"camera",
+		"gallery",
+		"timestep",
+		"xhr",
+		"analytics",
+		"social",
+		"gc",
+		"build"
+	],
+	"properties": [
+		 "url",
+		 "market",
+		 "deviceUUID",
+		 "installReferrer",
+		 "location",
+		 "screen",
+		 "uri",
+		 "tcpHost",
+		 "tcpPort",
+		 "appVersion",
+		 "version"
+	]
+}

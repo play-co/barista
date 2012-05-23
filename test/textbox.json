@@ -1,0 +1,25 @@
+{
+	"type": "objectTemplate",
+	"name": "textbox",
+	"methods": [
+		"create",
+		"destroy",
+		"show",
+		"hide",
+		"setPosition",
+		"setDimensions",
+		"setValue",
+		"setOpacity",
+		"setType",
+		"setVisible",
+		"getX",
+		"getY",
+		"getWidth",
+		"getHeight",
+		"getValue",
+		"getOpacity",
+		"getType",
+		"getVisible"
+	]
+
+}

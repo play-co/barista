@@ -1,0 +1,26 @@
+{
+	"type": "objectTemplate",
+	"name": "navigator",
+	"autoProperties": [
+		{
+			"type": "int",
+			"name": "width"
+		},
+		{
+			"type": "int",
+			"name": "height"
+		},
+		{
+			"type": "int",
+			"name": "densityDpi"
+		},
+		{
+			"type": "char*",
+			"name": "userAgent"
+		},
+		{
+			"type": "bool",
+			"name": "onLine"
+		}
+	]
+}

@@ -1,0 +1,11 @@
+{
+	"type": "objectTemplate",
+	"name": "purchase",
+	"methods": [
+		"onResult",
+		"buy",
+		"restore",
+		"confirmPurchase",
+		"supported"
+	]
+}

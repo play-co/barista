@@ -1,0 +1,11 @@
+{
+	"type": "objectTemplate",
+	"name": "timer",
+	"methods": [
+		"setTimeout",
+		"setInterval",
+		"clearTimeout",
+		"clearInterval"
+	]
+
+}
