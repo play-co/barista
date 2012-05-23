@@ -3,5 +3,6 @@ exports.templates = [
 	'method',
 	'property',
 	'autoProperty',
-	'template'
+	'template',
+	'header'
 ];

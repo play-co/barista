@@ -58,33 +58,50 @@ var loadTemplates = function(engineName) {
 	return e;
 };
 
-var writeFiles = function(objectName, contents) {
-	var fileName = './out/js_' + objectName + '.gen.cpp';
-	fs.writeFile(fileName, contents, function(err, out) {
-		if (!err) {
-			console.log('wrote file');
-		} else {
+var writeFile = function(fileName, contents) {
+	return function(cb) {
+		fs.writeFile(fileName, contents, cb);
+	};
+};
+var writeFiles = function(objectName, sourceContents, headerContents) {
+	var sourceName = './out/js_' + objectName + '.gen.cpp';
+	var headerName = './out/js_' + objectName + '.gen.h';
+
+	async.parallel([
+			writeFile(sourceName, sourceContents),
+			writeFile(headerName, headerContents)
+	],
+	function(err, result) {
+		if (err) {
 			console.log(err);
 		}
 	});
+};
+
+var defaultContents = {
+	methods: [],
+	properties: [],
+	autoProperties: []
 };
 exports.run = function(engineName, fileName) {
 	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
 	var desc = JSON.parse(contents);
+	merge(desc, defaultContents);
 	if (desc.type == 'objectTemplate') {
 		objectTemplate(engine, desc, function(err, result) {
 			if (err) {
 				console.log('error', err);
 			}
-			writeFiles(desc.name, result);
+			var name = desc.name;
+			writeFiles(name, result.objectTemplate, result.header);
 		});
 	}
 };
 
 
 var autoProperties = function(engine, desc) {
-	if (desc.autoProperties) {
+	if (desc.autoProperties.length) {
 		desc.autoProperties.forEach(function(prop) {
 			desc.properties.push(prop.name);
 		});
@@ -136,8 +153,14 @@ var objectTemplate = function(engine, desc, cb) {
 	function(err, results) {
 		if (!err) {
 			desc = merge(results, desc);
+			desc.NAME = desc.name.toUpperCase();
+			desc.objectName = desc.objectName || desc.name;
 			merge(results.properties, results.autoProperties);
-			render('objectTemplate', desc, function(err, result) {
+			async.parallel({
+				objectTemplate: render('objectTemplate', desc),
+				header: render('header', desc)
+			},
+			function(err, result) {
 				cb(err, result);
 			});
 		} else {
