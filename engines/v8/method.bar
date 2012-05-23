@@ -1,3 +1,2 @@
 {#methods}
-{name}->Set(v8::String::New("{.}"), v8::FunctionTemplate::New(def{.}));
-{/methods}
+{name}->Set(v8::String::New("{.}"), v8::FunctionTemplate::New(def{.}));{/methods}

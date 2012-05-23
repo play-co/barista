@@ -1,3 +1,2 @@
 {#templates}
-{name}->Set(v8::String::New("{.}"), js_{.}_get_template()->NewInstance());
-{/templates}
+{name}->Set(v8::String::New("{.}"), js_{.}_get_template()->NewInstance());{/templates}
