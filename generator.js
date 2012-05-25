@@ -64,8 +64,8 @@ var writeFile = function(fileName, contents) {
 	};
 };
 var writeFiles = function(objectName, sourceContents, headerContents) {
-	var sourceName = './out/js_' + objectName + '.gen.cpp';
-	var headerName = './out/js_' + objectName + '.gen.h';
+	var sourceName = './out/js_' + objectName + '_template.gen.cpp';
+	var headerName = './out/js_' + objectName + '_template.gen.h';
 
 	async.parallel([
 			writeFile(sourceName, sourceContents),
