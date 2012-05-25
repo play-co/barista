@@ -152,6 +152,7 @@ var objectTemplate = function(engine, desc, cb) {
 	},
 	function(err, results) {
 		if (!err) {
+			desc.templateNames = desc.templates;
 			desc = merge(results, desc);
 			desc.NAME = desc.name.toUpperCase();
 			desc.objectName = desc.objectName || desc.name;
