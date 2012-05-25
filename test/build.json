@@ -1,0 +1,8 @@
+{
+	"type": "objectTemplate",
+	"name": "build",
+	"properties": [
+		"sdkVersion",
+		"tealeafVersion"
+	]
+}

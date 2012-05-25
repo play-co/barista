@@ -1,0 +1,14 @@
+{
+	"type": "objectTemplate",
+	"name": "contactList",
+	"methods": [
+		"getContactList",
+		"_sendSMS",
+		"_sendAutomatedSMS",
+		"_pickContact",
+		"getPictureBase64"
+	],
+	"properties": [
+		"canSendSMS"
+	]	
+}

@@ -1,0 +1,15 @@
+{
+	"type": "objectTemplate",
+	"name": "gl",
+	"methods": [
+		"flushImages",
+		"_loadImage",
+		"newTexture",
+		"deleteTexture",
+		"_fillText",
+		"deleteAllTextures"
+	],
+	"templates": [
+		"Context2D"
+	]	
+}

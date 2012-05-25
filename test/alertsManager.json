@@ -1,0 +1,10 @@
+{
+	"type": "objectTemplate",
+	"name": "alertsManager",
+	"methods": [
+		"showNotification",
+		"showRecurringNotification",
+		"cancelNotification",
+		"cancelAllNotifications"
+	]
+}

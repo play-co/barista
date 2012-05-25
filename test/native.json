@@ -38,7 +38,8 @@
 		"analytics",
 		"social",
 		"gc",
-		"build"
+		"build",
+		"timer"
 	],
 	"properties": [
 		 "url",

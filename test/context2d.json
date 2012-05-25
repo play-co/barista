@@ -1,0 +1,32 @@
+{
+	"type": "objectTemplate",
+	"name": "Context2D",
+	"methods": [
+		"loadIdentity",
+		"drawImage",
+		"flushDrawImage",
+		"newTexture",
+		"rotate",
+		"scale",
+		"translate",
+		"save",
+		"restore",
+		"clear",
+		"setGlobalAlpha",
+		"getGlobalAlpha",
+		"_loadImage",
+		"clearRect",
+		"fillRect",
+		"strokeRect",
+		"measureText",
+		"fillText",
+		"enableScissor",
+		"disableScissor",
+		"drawPointSprites",
+		"measureTextBitmap",
+		"fillTextBitmap",
+		"fillTextBitmapDeprecated",
+		"addFilter",
+		"clearFilters"
+	]
+}

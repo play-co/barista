@@ -1,0 +1,11 @@
+{
+	"type": "objectTemplate",
+	"name": "haptics",
+	"methods": [
+		"cancel",
+		"vibrate"
+	],
+	"properties": [
+		"hasVibrator"
+	]
+}

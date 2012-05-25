@@ -1,0 +1,8 @@
+{
+	"type": "objectTemplate",
+	"name": "device",
+	"properties": [
+		"globalID",
+		"native_info"
+	]
+}

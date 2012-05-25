@@ -1,0 +1,10 @@
+{
+	"type": "objectTemplate",
+	"name": "localStorage",
+	"methods": [
+		"setItem",
+		"getItem",
+		"removeItem",
+		"clear"
+	]
+}

@@ -1,8 +1,8 @@
 {
 	"type": "objectTemplate",
-	"name": "timer",
+	"name": "gc",
 	"methods": [
-		"start"
+		"runGC",
+		"runMaybeGC"
 	]
-
 }

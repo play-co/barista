@@ -1,0 +1,22 @@
+{
+	"type": "objectTemplate",
+	"name": "global",
+	"methods": [
+		"setTimeout",
+		"clearTimeout",
+		"setInterval",
+		"clearInterval",
+		"setLocation"
+	],
+	"properties": [
+		"location",
+		"GLOBAL"
+	],
+	"templates": [
+		"CONFIG",
+		"screen",
+		"navigator",
+		"window",
+		"NATIVE"
+	]
+}

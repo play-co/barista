@@ -1,8 +1,7 @@
 {
 	"type": "objectTemplate",
-	"name": "timer",
+	"name": "flurry",
 	"methods": [
-		"start"
+		"actionComplete"
 	]
-
 }

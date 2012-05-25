@@ -1,0 +1,8 @@
+{
+	"type": "objectTemplate",
+	"name": "screen",
+	"properties": [
+		"width",
+		"height"
+	]
+}

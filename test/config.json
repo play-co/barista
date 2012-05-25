@@ -1,0 +1,7 @@
+{
+	"type": "objectTemplate",
+	"name": "CONFIG",
+	"properties": [
+		"baseURL"
+	]
+}

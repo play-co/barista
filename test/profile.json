@@ -1,0 +1,11 @@
+{
+	"type": "objectTemplate",
+	"name": "profile",
+	"methods": [
+		"getPictureBase64"
+	],
+	"properties": [
+		"fullName",
+		"emails"
+	]
+}

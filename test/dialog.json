@@ -1,0 +1,10 @@
+{
+	"type": "objectTemplate",
+	"name": "dialog",
+	"methods": [
+		"setItem",
+		"getItem",
+		"removeItem",
+		"clear"
+	]
+}

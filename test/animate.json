@@ -1,0 +1,16 @@
+
+{
+	"type": "objectTemplate",
+	"name": "animate",
+	"methods": [
+		"now",
+		"then",
+		"commit",
+		"clear",
+		"wait",
+		"pause",
+		"resume",
+		"isPaused",
+		"hasFrames"
+	]
+}
