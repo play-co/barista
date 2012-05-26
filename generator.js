@@ -63,9 +63,10 @@ var writeFile = function(fileName, contents) {
 		fs.writeFile(fileName, contents, cb);
 	};
 };
-var writeFiles = function(objectName, sourceContents, headerContents) {
-	var sourceName = './out/js_' + objectName + '_template.gen.cpp';
-	var headerName = './out/js_' + objectName + '_template.gen.h';
+var writeFiles = function(objectName, sourceContents, headerContents, outputDir) {
+	var outputPathBase = outputDir + '/js_' + objectName + '_template.gen';
+	var sourceName = outputPathBase + '.cpp';
+	var headerName = outputPathBase + '.h';
 
 	async.parallel([
 			writeFile(sourceName, sourceContents),
@@ -83,10 +84,15 @@ var defaultContents = {
 	properties: [],
 	autoProperties: []
 };
-exports.run = function(engineName, fileName) {
+exports.run = function(engineName, fileName, outputDir) {
 	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
-	var desc = JSON.parse(contents);
+	try {
+		var desc = JSON.parse(contents);
+	} catch (e) {
+		console.log('failed to parse object description for: ' + fileName);
+		return;
+	}
 	merge(desc, defaultContents);
 	if (desc.type == 'objectTemplate') {
 		objectTemplate(engine, desc, function(err, result) {
@@ -94,7 +100,7 @@ exports.run = function(engineName, fileName) {
 				console.log('error', err);
 			}
 			var name = desc.name;
-			writeFiles(name, result.objectTemplate, result.header);
+			writeFiles(name, result.objectTemplate, result.header, outputDir);
 		});
 	}
 };
