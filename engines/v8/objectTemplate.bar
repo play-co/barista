@@ -1,5 +1,7 @@
 #include "js/js_{name}_template.h"
 #include "js/js_{name}.h"
+{#templateNames}
+#include "js/js_{.}_template.h"{/templates}
 
 {autoProperties}
 
@@ -8,10 +10,8 @@ v8::Handle<v8::FunctionTemplate> js_{name}_get_template() {
 	v8::Handle<v8::FunctionTemplate> templ = v8::FunctionTemplate::New();
 	v8::Handle<v8::ObjectTemplate> {name} = templ->InstanceTemplate();
 	{name}->SetInternalFieldCount(2);
-	{#autoProperties}
-	templ->SetCallHandle(js_{name}_constructor);	
-	{/autoProperties}
-	
+	templ->SetCallHandle(def_{name}_constructor);	
+	{name}.MakeWeak(NULL, def_{name}_finalize);
 	{methods}
 	{properties}
 	{templates}
