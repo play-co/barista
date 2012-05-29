@@ -78,7 +78,19 @@ var writeFiles = function(objectName, sourceContents, headerContents, outputDir)
 		}
 	});
 };
-
+var normalizeProperties = function(desc) {
+	var props = desc.properties;
+	for (var i = 0; i < props.length; i++) {
+		var prop = props[i];
+		if (typeof prop == 'string') {
+			props[i] = {
+				name: prop,
+				readOnly: false
+			};
+		}
+		props[i].hasSetter = !props[i].readOnly;
+	}
+};
 var defaultContents = {
 	methods: [],
 	properties: [],
@@ -87,8 +99,9 @@ var defaultContents = {
 exports.run = function(engineName, fileName, outputDir) {
 	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
+	var desc;
 	try {
-		var desc = JSON.parse(contents);
+		desc = JSON.parse(contents);
 	} catch (e) {
 		console.log('failed to parse object description for: ' + fileName);
 		return;
@@ -124,6 +137,7 @@ var autoProperties = function(engine, desc) {
 			prop.jsType = type;
 		});
 	}
+	normalizeProperties(desc);
 	return function(cb) {
 		var renderFuncs = [];
 		desc.autoProperties.forEach(function(prop) {
