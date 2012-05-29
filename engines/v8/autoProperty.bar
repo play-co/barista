@@ -1,5 +1,5 @@
 {#autoProperties obj_name=name}
-v8::Handle<v8::Value> js_{obj_name}_get_{.name}(v8::Local<String> property, const v8::AccessorInfo &info) {
+v8::Handle<v8::Value> js_{obj_name}_get_{.name}(v8::Local<v8::String> property, const v8::AccessorInfo &info) {
 	v8::Local<v8::Object> thiz = info.Holder();
 	{obj_name} *obj = ({obj_name}*) v8::Local<v8::External>::Cast(thiz->GetInternalField(0))->Value();
 	{#customGetter}

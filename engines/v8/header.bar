@@ -2,6 +2,6 @@
 #define JS_{NAME}_TEMPLATE_H
 
 #include "js/js.h"
-v8::Handle<v8::Value> js_{name}_constructor(const v8::Arguments &args);
+v8::Handle<v8::FunctionTemplate> js_{name}_get_template();
 
 #endif //JS_{NAME}_TEMPLATE_H

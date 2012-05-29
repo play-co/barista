@@ -1,19 +1,22 @@
-#include "js/js_{name}_template.h"
+#include "js_{name}_template.gen.h"
 #include "js/js_{name}.h"
 {#templateNames}
-#include "js/js_{.}_template.h"{/templates}
+#include "js_{.}_template.gen.h"{/templates}
 
 {autoProperties}
 
-v8::Handle<v8::Value> js_{name}_get_template(const v8::Arguments &args);
 v8::Handle<v8::FunctionTemplate> js_{name}_get_template() {
 	v8::Handle<v8::FunctionTemplate> templ = v8::FunctionTemplate::New();
 	v8::Handle<v8::ObjectTemplate> {name} = templ->InstanceTemplate();
 	{name}->SetInternalFieldCount(2);
-	templ->SetCallHandle(def_{name}_constructor);	
+	{#hasConstructor}
+	templ->SetCallHandler(def_{name}_constructor);	
+	{/hasConstructor}
+	{#hasDestructor}
 	{name}.MakeWeak(NULL, def_{name}_finalize);
+	{/hasDestructor}
 	{methods}
 	{properties}
 	{templates}
-	return {name};
+	return templ;
 }
