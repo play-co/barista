@@ -1,5 +1,8 @@
 #include "js_{name}_template.gen.h"
 #include "js/js_{name}.h"
+{#headers}
+#include "{.}"
+{/headers}
 {#templateNames}
 #include "js_{.}_template.gen.h"{/templates}
 
