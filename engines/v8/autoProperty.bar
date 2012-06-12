@@ -5,7 +5,7 @@ v8::Handle<v8::Value> js_{obj_name}_get_{.name}(v8::Local<v8::String> property, 
 	{#customGetter}
 	{.}
 	{:else}
-	{.ype} prop = obj->{.name};
+	{.type} prop = obj->{.cName};
 	return v8::{.jsType}::New(prop);
 	{/customGetter}
 }
@@ -16,7 +16,7 @@ void js_{obj_name}_set_{name}(v8::Local<v8::String> property, v8::Local<v8::Valu
 	{#customSetter}
 	{.}
 	{:else}
-	obj->{name} = value->To{.type}()->Value();
+	obj->{cName} = value->To{.jsType}()->Value();
 	{/customSetter}
 }
 {/autoProperties}
