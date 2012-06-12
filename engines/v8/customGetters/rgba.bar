@@ -1,0 +1,2 @@
+{.type} prop = obj->{.cName};
+return v8::{.jsType}::New(rgba_to_string(prop));

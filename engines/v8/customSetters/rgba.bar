@@ -1,0 +1,6 @@
+if (obj->{name}) {
+	free(obj->{name});
+}
+rbga color;
+rgba_parse(str, &color);
+obj->{name} = color;
