@@ -81,6 +81,7 @@ var writeFiles = function(objectName, sourceContents, headerContents, outputDir)
 var normalizeProperties = function(desc) {
 	var props = desc.properties;
 	for (var i = 0; i < props.length; i++) {
+	
 		var prop = props[i];
 		if (typeof prop == 'string') {
 			props[i] = {
@@ -118,6 +119,38 @@ exports.run = function(engineName, fileName, outputDir) {
 	}
 };
 
+var isUpper = function(char) {
+	return char && char.toUpperCase() == char;
+}
+var split = function(name) {
+	var toks = [];
+	var index = 0;
+	while (name.length) {
+		if (index == name.length) {
+			toks.push(name.slice());
+			break;
+		}
+		var c = name[index];
+		if (index != 0 && isUpper(c)) {
+			toks.push(name.slice(0, index));
+			name = name.slice(index);
+			index = 0;
+			while (isUpper(name[index])) {
+				index++;	
+			}
+		} else {
+			index++;
+		}
+	}
+	return toks;
+}
+var getCName = function(name) {
+	//split based on capital letters
+	var toks = split(name).map(function(tok) {
+		return tok.toLowerCase();	
+	});
+	return toks.join('_');
+}
 
 var autoProperties = function(engine, desc) {
 	if (desc.autoProperties.length) {
@@ -126,8 +159,15 @@ var autoProperties = function(engine, desc) {
 		});
 		desc.autoProperties.forEach(function(prop) {
 			var type = engine.types[prop.type];
-			var customSetter = engine.customSetters[type];
-			var customGetter = engine.customGetters[type];
+			var customSetter = engine.customSetters[prop.type];
+			var customGetter = engine.customGetters[prop.type];
+			if (!customSetter) {
+				var customSetter = engine.customSetters[type];
+			}
+			if (!customGetter) {
+				var customGetter = engine.customGetters[type];
+			}
+			console.log(prop, customSetter, customGetter);
 			if (customSetter) {
 				prop.customSetter = customSetter;
 			}
@@ -135,6 +175,7 @@ var autoProperties = function(engine, desc) {
 				prop.customGetter = customGetter;
 			}
 			prop.jsType = type;
+			prop.cName = getCName(prop.name);	
 		});
 	}
 	normalizeProperties(desc);
