@@ -2,8 +2,10 @@
 	"type": "objectTemplate",
 	"name": "timestep_view",
 	"headers": [
-		"timestep/timestep_view.h"
+		"timestep/timestep_view.h",
+		"core/rgba.h"
 	],
+	"hasConstructor": true,
 	"autoProperties": [
 		{
 			"type": "double",
@@ -15,11 +17,13 @@
 		},
 		{
 			"type": "double",
-			"name": "widthPercent"
+			"name": "widthPercent",
+			"userSetter": true
 		},
 		{
 			"type": "double",
-			"name": "heightPercent"
+			"name": "heightPercent",
+			"userSetter": true
 		},
 		{
 			"type": "double",
@@ -50,6 +54,10 @@
 			"name": "backgroundColor"
 		},
 		{
+			"type": "bool",
+			"name": "needsReflow"
+		},
+		{
 			"type": "double",
 			"name": "visible"
 		},
@@ -59,7 +67,8 @@
 		},
 		{
 			"type": "int",
-			"name": "zIndex"
+			"name": "zIndex",
+			"userSetter": true
 		},
 		{
 			"type": "rgba",
@@ -71,12 +80,33 @@
 		"height"
 	],
 	"methods": [
-		"addSubview",
-		"removeSubview",
-		"getSuperview",
-		"getSubviews",
-		"wrapRender",
-		"wrapTick",
-		"localizePt"
+		{
+			"name": "addSubview",
+			"argCount": 1
+		},
+		{
+			"name": "removeSubview",
+			"argCount": 1
+		},
+		{
+			"name": "getSuperview",
+			"argCount": 0
+		},
+		{
+			"name": "getSubviews",
+			"argCount": 0
+		},
+		{
+			"name": "wrapRender",
+			"argCount": 2
+		},
+		{
+			"name": "wrapTick",
+			"argCount": 1
+		},
+		{
+			"name": "localizePt",
+			"argCount": 1
+		}
 	]
 }
