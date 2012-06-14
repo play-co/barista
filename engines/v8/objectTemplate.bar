@@ -13,6 +13,7 @@ v8::Handle<v8::FunctionTemplate> js_{name}_get_template() {
 	v8::Handle<v8::ObjectTemplate> {name} = templ->InstanceTemplate();
 	{name}->SetInternalFieldCount(2);
 	{#hasConstructor}
+	v8::Handle<v8::Value> def_{name}_constructor(const v8::Arguments &args);
 	templ->SetCallHandler(def_{name}_constructor);	
 	{/hasConstructor}
 	{#hasDestructor}

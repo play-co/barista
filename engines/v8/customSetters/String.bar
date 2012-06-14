@@ -1,4 +1,6 @@
 if (obj->{name}) {
 	free(obj->{name});
 }
+v8::String::Utf8Value s(value);
+const char *str = ToCString(s);
 obj->{name} = strdup(str);
