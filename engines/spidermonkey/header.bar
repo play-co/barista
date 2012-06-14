@@ -1,0 +1,7 @@
+#ifndef JS_{NAME}_TEMPLATE_H
+#define JS_{NAME}_TEMPLATE_H
+
+#include "js/js.h"
+void *js_{name}_add_to_runtime();
+
+#endif //JS_{NAME}_TEMPLATE_H

@@ -1,7 +1,14 @@
-JSFunctionSpec {{name}}_spec[] = {
-    {{#methods}}
-    {def{{.}}, (JSNative)def{{.}}, 0, FUNCTION_FLAGS, 0},
-    {{/methods}}
-    JS_FS_END
+{#methods obj_name=name}
+JSBool def_{name}_{.}(JSContext, uintN, jsval);
+{/properties}
+static JSFunctionSpec functions[] = {
+	{#methods obj_name=name}
+		{
+			"{.name}", 
+			(JSNative)def_{obj_name}_{.name},
+			{.argCount},
+			JSFUN_FAST_NATIVE,
+			0
+		},
+	{/properties}
 };
-JS_DefineFunctions(cx), {{name}}, {{name}}_spec);

@@ -1,0 +1,2 @@
+JSString *str = JS_NewString(cx, obj->{.name}, strlen(obj->{name}));
+JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(str));

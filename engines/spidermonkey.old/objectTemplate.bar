@@ -1,0 +1,10 @@
+JSObject *s_{{name}}_get_template() {
+    JSContext *cx = js_get_context();
+    JSObject *{{name}} = JS_NewObject(cx, NULL, NULL, NULL);
+    {{methods}}
+    {{properties}}
+    {{templates}}
+
+    return {{name}};
+}
+           

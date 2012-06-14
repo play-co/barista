@@ -1,0 +1,32 @@
+{#autoProperties obj_name=name}
+{#.userGetter}
+{:else}
+static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSObject *thiz, jsid idval, jsval *vp) {
+	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(cx, thiz);
+	{#customGetter}
+	{.}
+	{:else}
+	{.type} prop = obj->{.cName};
+	jsval val = {.TYPE}_TO_JSVAL(prop);
+	JS_SET_RVAL(cx, vp, val);
+	{/customGetter}
+	return JS_TRUE;
+}
+{/.userGetter}
+
+{#.userSetter}
+{:else}
+	
+static JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSObject *thiz, jsid idval, jsval *vp) {
+	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(cx, thiz);
+	{#customSetter}
+	{.}
+	{:else}
+		js{type} val;
+		JS_ValueTo{jsType}(cx, *vp, &val);		
+		obj->{cName} = val;
+	{/customSetter}
+	return JS_TRUE;
+}
+{/.userSetter}
+{/autoProperties}
