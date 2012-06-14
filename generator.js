@@ -158,16 +158,20 @@ var autoProperties = function(engine, desc) {
 			desc.properties.push(prop.name);
 		});
 		desc.autoProperties.forEach(function(prop) {
+			prop.TYPE = prop.type.toUpperCase();
 			var type = engine.types[prop.type];
 			var customSetter = engine.customSetters[prop.type];
 			var customGetter = engine.customGetters[prop.type];
+			prop.customSetterType =  prop.type;
+			prop.customGetterType =  prop.type;
 			if (!customSetter) {
+				prop.customSetterType =  type;
 				var customSetter = engine.customSetters[type];
 			}
 			if (!customGetter) {
+				prop.customGetterType =  type;
 				var customGetter = engine.customGetters[type];
 			}
-			console.log(prop, customSetter, customGetter);
 			if (customSetter) {
 				prop.customSetter = customSetter;
 			}
@@ -182,8 +186,15 @@ var autoProperties = function(engine, desc) {
 	return function(cb) {
 		var renderFuncs = [];
 		desc.autoProperties.forEach(function(prop) {
-			['customSetter', 'customGetter'].forEach(function(type) {
-				var templateName = type + '_' + prop.jsType;
+			var customTemplates = [];
+			if (!prop.userSetter) {
+				customTemplates.push('customSetter');
+			}
+			if (!prop.userGetter) {
+				customTemplates.push('customGetter');
+			}
+			customTemplates.forEach(function(type) {
+				var templateName = type + '_' + prop[type + 'Type'];
 				renderFuncs.push(function(cb) {
 					render(templateName, prop, function(err, result) {
 						if (!err) {
