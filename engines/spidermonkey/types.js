@@ -1,12 +1,12 @@
 exports.types = {
     'bool': 'Boolean',
-    'int': 'Integer',
-    'unsigned int': 'Integer',
-    'long': 'Integer',
-    'short': 'Integer',
-    'char': 'Integer',
+    'int': 'Int',
+    'unsigned int': 'Int',
+    'long': 'Int',
+    'short': 'Int',
+    'char': 'Int',
     'double': 'Number',
-    'float': 'Number',
+    'float': 'Float',
     'char*': 'String',
     'char *': 'String',
     'rgba': 'String'
