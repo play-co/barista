@@ -1,0 +1,3 @@
+bool prop = obj->{.cName};
+jsval val = BOOLEAN_TO_JSVAL(prop);
+JS_SET_RVAL(cx, vp, val);
