@@ -1,7 +1,8 @@
 #ifndef JS_{NAME}_TEMPLATE_H
 #define JS_{NAME}_TEMPLATE_H
 
+#include "core/util/detect.h"
 #include "js/js.h"
-void *js_{name}_add_to_runtime();
+CEXPORT void {name}_add_to_object(JSObject *obj);
 
 #endif //JS_{NAME}_TEMPLATE_H

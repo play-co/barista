@@ -1,16 +1,19 @@
-#define PROPERTY_FLAGS (JSPROP_ENUMERATE)
+#define _PROPERTY_FLAGS (JSPROP_ENUMERATE)
 {#properties obj_name=name}
-JSBool def_{obj_name}_get_{.name}(JSContext, JSObject, jsid, jsval);
-JSBool def_{obj_name}_set_{.name}(JSContext, JSObject, jsid, jsval);
+JSBool def_{obj_name}_get_{.name}(JSContext*, JSObject*, jsid, jsval*);
+JSBool def_{obj_name}_set_{.name}(JSContext*, JSObject*, jsid, jsval*);
 {/properties}
 static JSPropertySpec properties[] = {
 	{#properties obj_name=name}
 		{
 			"{name}", 
 			0, 
-			PROPERTY_FLAGS,
+			_PROPERTY_FLAGS,
 			def_{obj_name}_get_{.name},
 			def_{obj_name}_set_{.name}
 		},
 	{/properties}
+	{0}
 };
+
+#undef _PROPERTY_FLAGS

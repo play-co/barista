@@ -1,5 +1,5 @@
 {#methods obj_name=name}
-JSBool def_{name}_{.}(JSContext, uintN, jsval);
+JSBool def_{name}_{.name}(JSContext, uintN, jsval);
 {/properties}
 static JSFunctionSpec functions[] = {
 	{#methods obj_name=name}
@@ -11,4 +11,5 @@ static JSFunctionSpec functions[] = {
 			0
 		},
 	{/properties}
+		{0}
 };

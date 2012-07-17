@@ -5,17 +5,22 @@
 {/headers}
 {#templateNames}
 #include "js_{.}_template.gen.h"{/templates}
+#include "core/util/detect.h"
 
+CEXPORT JSObject *get_global_object();
+CEXPORT JSContext *get_js_context();
 {autoProperties}
 {properties}
 {methods}
-
+JSBool def_{name}_class_constructor(JSContext *cx, JSObject *thiz, uintN argc, jsval *argv, jsval *rval);
+void def_{name}_class_finalize(JSContext *cx, JSObject *obj);
+ 
 static JSClass {name}_class = {
 	"{jsName}",
 	JSCLASS_HAS_PRIVATE,
 	JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_PropertyStub,
 	JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub,
-	{name}_class_finalize,
+	def_{name}_class_finalize,
 	NULL,
 	NULL,
 	NULL,
@@ -27,10 +32,9 @@ static JSClass {name}_class = {
 };
 
 
-void {name}_add_to_runtime() {
+CEXPORT void {name}_add_to_object(JSObject *parent) {
 	JSContext *cx = get_js_context();
-	JSObject *global = get_global_object();
-	JS_InitClass(cx, global, NULL, &{name}_class, {name}_class_constructor,
+	JS_InitClass(cx, parent, NULL, &{name}_class, def_{name}_class_constructor,
 	{constructorArgc}, properties, functions, NULL, NULL);
 
 }

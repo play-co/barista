@@ -23,7 +23,7 @@ static JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSObject *thiz, jsid idv
 	{.}
 	{:else}
 		js{type} val;
-		JS_ValueTo{jsType}(cx, *vp, &val);		
+		JS_ValueTo{.jsType}(cx, *vp, &val);
 		obj->{cName} = val;
 	{/customSetter}
 	return JS_TRUE;
