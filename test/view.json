@@ -1,11 +1,13 @@
 {
 	"type": "objectTemplate",
 	"name": "timestep_view",
+	"jsName": "View",
 	"headers": [
 		"timestep/timestep_view.h",
 		"core/rgba.h"
 	],
 	"hasConstructor": true,
+	"constructorArgc": 1,
 	"autoProperties": [
 		{
 			"type": "double",
@@ -18,12 +20,14 @@
 		{
 			"type": "double",
 			"name": "widthPercent",
-			"userSetter": true
+			"userSetter": true,
+			"userGetter": true
 		},
 		{
 			"type": "double",
 			"name": "heightPercent",
-			"userSetter": true
+			"userSetter": true,
+			"userGetter": true
 		},
 		{
 			"type": "double",
