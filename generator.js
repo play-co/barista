@@ -24,6 +24,13 @@ var merge = function(a, b) {
 	return a;
 };
 
+/*
+ * render the template named @name
+ * with the parameters desc. 
+ *
+ * If a callback is passed, do the rendering immediately
+ * If not, curry the render function
+ */
 var render = function(name, desc, cb) {
 	var fn =  function(cb) {
 		return dust.render(name, desc, cb);
@@ -35,6 +42,15 @@ var render = function(name, desc, cb) {
 	}
 };
 
+/*
+ * load a custom type (String, Boolean) for a given engine
+ * These types are described in 
+ * engine/engineName/customSetters/type.bar
+ * engine/engineName/customGetters/type.bar
+ *
+ * These are used to provide custom functionality when boxing 
+ * or unboxing a JavaScript type
+ */
 var loadCustom = function(type, engine) {
 	type = 'custom' + type;
 	for (var k in engine[type + 's']) {
@@ -45,6 +61,13 @@ var loadCustom = function(type, engine) {
 		}
 	}
 };
+
+/*
+ * Load the templates for a given engine
+ * Generally these are method, property, autoproperty
+ * Though there can be more.  Each template is compiled
+ * and therefore stored in the dust cache for later use. 
+ */
 var loadTemplates = function(engineName) {
 	var e = engine.load(engineName);
 	templates.forEach(function(template) {
@@ -58,11 +81,21 @@ var loadTemplates = function(engineName) {
 	return e;
 };
 
+/*
+ * Curried function for writing a file asynchronously.
+ */
 var writeFile = function(fileName, contents) {
 	return function(cb) {
 		fs.writeFile(fileName, contents, cb);
 	};
 };
+
+/*
+ * For a given object description and implementation,
+ * write the header and source file to the specified output
+ * directory.
+ *TODO allow the names to be configured.
+ */
 var writeFiles = function(objectName, sourceContents, headerContents, outputDir) {
 	var outputPathBase = outputDir + '/js_' + objectName + '_template.gen';
 	var sourceName = outputPathBase + '.cpp';
@@ -78,6 +111,24 @@ var writeFiles = function(objectName, sourceContents, headerContents, outputDir)
 		}
 	});
 };
+
+/*
+ * An object description may have one or more "properties".  Properties
+ * correspond to getter/setter object properties in JavaScript.
+ *
+ * An object description that specifies properties is making the promise
+ * that the getter and/or setter for this property is implemented elsewhere
+ * in their C source.
+ *
+ * Properties can be specified in two ways - either a String name, which
+ * means that the property is readable and writable, or an object
+ * {
+ *     name: "propertyName",
+ *     readOnly: true|false
+ * }
+ *
+ * This method will normalize them to all be of the second style.
+ */
 var normalizeProperties = function(desc) {
 	var props = desc.properties;
 	for (var i = 0; i < props.length; i++) {
@@ -92,11 +143,16 @@ var normalizeProperties = function(desc) {
 		props[i].hasSetter = !props[i].readOnly;
 	}
 };
+
 var defaultContents = {
 	methods: [],
 	properties: [],
 	autoProperties: []
 };
+/*
+ * Given an engineName and an object description file, generate the 
+ * C wrapper and write it to outputDir
+ */
 exports.run = function(engineName, fileName, outputDir) {
 	var engine = loadTemplates(engineName);
 	var contents = fs.readFileSync(fileName);
@@ -119,9 +175,13 @@ exports.run = function(engineName, fileName, outputDir) {
 	}
 };
 
+/*
+ * string utility functions
+ */
 var isUpper = function(char) {
 	return char && char.toUpperCase() == char;
-}
+};
+
 var split = function(name) {
 	var toks = [];
 	var index = 0;
@@ -131,7 +191,7 @@ var split = function(name) {
 			break;
 		}
 		var c = name[index];
-		if (index != 0 && isUpper(c)) {
+		if (index !== 0 && isUpper(c)) {
 			toks.push(name.slice(0, index));
 			name = name.slice(index);
 			index = 0;
@@ -143,15 +203,37 @@ var split = function(name) {
 		}
 	}
 	return toks;
-}
+};
+
+/*
+ * given a camelCase name, return the
+ * c_style_name version of it.
+ *
+ * There's a slight oddity here, which is that a name like
+ * hasJSRender will get turned into has_jsrender.
+ * TODO fix this?
+ */
 var getCName = function(name) {
 	//split based on capital letters
 	var toks = split(name).map(function(tok) {
 		return tok.toLowerCase();	
 	});
 	return toks.join('_');
-}
+};
 
+/*
+ * autoProperties are properties specified on an object
+ * description that can have their implementations automatically
+ * generated.  Autoproperty specs look like:
+ *
+ * {
+ *     "type": "double", //type is specified in engineName/types.js
+ *     "name": "myProperty"
+ * }
+ *
+ * getters and setters are then automatically generated based on
+ * the autoProperty.bar template.
+ */
 var autoProperties = function(engine, desc) {
 	if (desc.autoProperties.length) {
 		desc.autoProperties.forEach(function(prop) {
@@ -166,11 +248,11 @@ var autoProperties = function(engine, desc) {
 			prop.customGetterType =  prop.type;
 			if (!customSetter) {
 				prop.customSetterType =  type;
-				var customSetter = engine.customSetters[type];
+				customSetter = engine.customSetters[type];
 			}
 			if (!customGetter) {
 				prop.customGetterType =  type;
-				var customGetter = engine.customGetters[type];
+				customGetter = engine.customGetters[type];
 			}
 			if (customSetter) {
 				prop.customSetter = customSetter;
@@ -215,6 +297,58 @@ var autoProperties = function(engine, desc) {
 	};
 };
 
+/*
+ * An objectTemplate is a json file describing a C object that
+ * should be wrapped in JavaScript.  It can have three types of
+ * functionality:
+ *
+ * methods:
+ *     Methods are described as:
+ *     {
+ *         "name": "aJavascriptMethod",
+ *         "argCount": 1
+ *     }
+ *     They make the promise that a C method matching the method.bar
+ *     template is implemented elsewhere.
+ *
+ *
+ * properties:
+ *     Properties can be specified in two ways - either a String name, which
+ *     means that the property is readable and writable, or an object
+ *     {
+ *         name: "propertyName",
+ *         readOnly: true|false
+ *     }
+ *     They make the promise that a C method matching the property.bar
+ *     template is implemented elsewhere.
+ *
+ * autoProperties:
+ *     autoProperties are properties specified on an object
+ *     description that can have their implementations automatically
+ *     generated.  Autoproperty specs look like:
+ *
+ *     {
+ *         "type": "double", //type is specified in engineName/types.js
+ *         "name": "myProperty"
+ *     }
+ *     They have wrappers generated by the engine/autoProperty.bar template
+ *
+ *
+ *     objecTemplates also have the following properties:
+ *
+ *     name: the name of the C backing of the object
+ *
+ *     jsName: the name that should be exported to JavaScript
+ *
+ *     headers: an array of headers that should be included in the generated
+ *     C source
+ *
+ *     hasConstructor: true|false.  If an objectTemplate has a constructor,
+ *     it is assumed that it is correctly implemented elsewhere.
+ *
+ *     constructorArgc: if there is a constructor, the number of arguments to it
+ *
+ */
 var objectTemplate = function(engine, desc, cb) {
 	async.parallel({
 		methods: render('method', desc),
