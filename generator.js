@@ -242,7 +242,3 @@ var objectTemplate = function(engine, desc, cb) {
 	});
 	
 };
-
-if (require.main === module) {
-	exports.run('v8', './test/sound.json');
-}
