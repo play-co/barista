@@ -1,7 +1,0 @@
-JSFunctionSpec {{name}}_spec[] = {
-    {{#methods}}
-    {def{{.}}, (JSNative)def{{.}}, 0, FUNCTION_FLAGS, 0},
-    {{/methods}}
-    JS_FS_END
-};
-JS_DefineFunctions(cx), {{name}}, {{name}}_spec);
