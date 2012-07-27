@@ -9,35 +9,35 @@
 	],
 	"autoProperties": [
 		{
-			"type": "double",
+			"type": "int",
 			"name": "x"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "y"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "width"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "height"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "marginTop"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "marginRight"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "marginBottom"
 		},
 		{
-			"type": "double",
+			"type": "int",
 			"name": "marginLeft"
 		},
 		{
