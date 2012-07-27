@@ -2,6 +2,8 @@
 var generator = require('./generator');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
+var path = require('path');
+var indent = require('./indent');
 
 
 var argv = require('optimist')
@@ -33,4 +35,5 @@ if (argv.c) {
 	files.forEach(function(file) {
 		generator.run(argv.e, file, outputDir);
 	});
+	indent.indent(outputDir);
 }
