@@ -3,7 +3,7 @@ var async = require('async');
 var templates = require('./templates').templates;
 
 var buildPath = function(engineName, templateName) {
-	return templatePath = __dirname + '/engines/' + engineName + '/' + templateName;
+	return templatePath = __dirname + '/../engines/' + engineName + '/' + templateName;
 };
 var _load = function(engineName, templateName) {
 	var templatePath = buildPath(engineName, templateName);
@@ -36,7 +36,7 @@ var writeTemplate = function(path) {
 	};
 };
 exports.create = function(name) {
-	enginePath = __dirname + '/engines/' + name;
+	enginePath = __dirname + '/../engines/' + name;
 	
 	async.parallel(
 		[

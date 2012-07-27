@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-var generator = require('./generator');
+var generator = require('../src/generator');
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 var path = require('path');
-var indent = require('./indent');
+var indent = require('../src/indent');
 
 
 var argv = require('optimist')
@@ -21,10 +21,10 @@ var argv = require('optimist')
 
 
 if (argv.c) {
-	require('./engine').create(argv.e);
+	require('../src/engine').create(argv.e);
 } else {
 	var files = argv._;
-	var outputDir = argv.o || './out';
+	var outputDir = argv.o || '.';
 	if (!files.length) {
 		console.log('missing object description files');
 		process.exit(1);
@@ -36,4 +36,5 @@ if (argv.c) {
 		generator.run(argv.e, file, outputDir);
 	});
 	indent.indent(outputDir);
+	console.log('Files written to ', outputDir);
 }
