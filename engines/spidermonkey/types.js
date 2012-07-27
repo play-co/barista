@@ -1,6 +1,6 @@
 exports.types = {
     'bool': 'Boolean',
-    'int': 'Int',
+    'int': 'Int32',
     'unsigned int': 'Int',
     'long': 'Int',
     'short': 'Int',
