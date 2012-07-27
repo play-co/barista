@@ -43,7 +43,8 @@
 		},
 		{
 			"type": "double",
-			"name": "opacity"
+			"name": "opacity",
+			"userSetter": "true"
 		},
 		{
 			"type": "double",
