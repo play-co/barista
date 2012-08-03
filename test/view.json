@@ -59,16 +59,20 @@
 			"name": "backgroundColor"
 		},
 		{
-			"type": "bool",
-			"name": "needsReflow"
-		},
-		{
 			"type": "double",
 			"name": "visible"
 		},
 		{
 			"type": "bool",
+			"name": "hasJSRender"
+		},
+		{
+			"type": "bool",
 			"name": "hasJSTick"
+		},
+		{
+			"type": "bool",
+			"name": "__firstRender"
 		},
 		{
 			"type": "int",
