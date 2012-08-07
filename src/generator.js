@@ -71,6 +71,7 @@ var loadCustom = function(type, engine) {
 var loadTemplates = function(engineName) {
 	var e = engine.load(engineName);
 	templates.forEach(function(template) {
+		console.log('compiling', template);
 		var compiled = dust.compile(e[template], template);	
 		if (compiled) {
 			dust.loadSource(compiled);
@@ -182,6 +183,10 @@ var isUpper = function(char) {
 	return char && char.toUpperCase() == char;
 };
 
+var isAlpha = function(char) {
+	return /[A-Za-z]/.test(char);
+}
+
 var split = function(name) {
 	var toks = [];
 	var index = 0;
@@ -191,7 +196,7 @@ var split = function(name) {
 			break;
 		}
 		var c = name[index];
-		if (index !== 0 && isUpper(c)) {
+		if (index !== 0 && isUpper(c) && isAlpha(c)) {
 			toks.push(name.slice(0, index));
 			name = name.slice(index);
 			index = 0;
