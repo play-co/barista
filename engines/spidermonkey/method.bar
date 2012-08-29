@@ -1,6 +1,6 @@
 {#methods obj_name=name}
 JSBool def_{name}_{.name}(JSContext, uintN, jsval);
-{/properties}
+{/methods}
 static JSFunctionSpec functions[] = {
 	{#methods obj_name=name}
 		{
@@ -10,6 +10,7 @@ static JSFunctionSpec functions[] = {
 			JSFUN_FAST_NATIVE,
 			0
 		},
-	{/properties}
+	{/methods}
 		{0}
 };
+

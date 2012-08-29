@@ -4,11 +4,9 @@
 #include "{.}"
 {/headers}
 {#templateNames}
-#include "js_{.}_template.gen.h"{/templates}
-#include "core/util/detect.h"
+#include "js_{.}_template.gen.h"{/templateNames}
+#include "js/js_core.h"
 
-CEXPORT JSObject *get_global_object();
-CEXPORT JSContext *get_js_context();
 {autoProperties}
 {properties}
 {methods}
