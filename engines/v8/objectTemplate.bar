@@ -4,7 +4,7 @@
 #include "{.}"
 {/headers}
 {#templateNames}
-#include "js_{.}_template.gen.h"{/templates}
+#include "js_{.}_template.gen.h"{/templateNames}
 
 {autoProperties}
 
