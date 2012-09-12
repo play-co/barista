@@ -3,6 +3,10 @@ var fs = require('fs');
 var path = require('path');
 
 exports.indent = function(dir) {
+
+	// TODO: indent is not available on all platforms
+	return;
+
 	var files = fs.readdirSync(dir).map(function(file) { return path.join(dir, file); });
 	var c = child.spawn('indent', [
 		"--blank-lines-after-declarations",
