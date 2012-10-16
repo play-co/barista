@@ -3,7 +3,7 @@
 	"name": "timestep_view",
 	"jsName": "View",
 	"headers": [
-		"timestep/timestep_view.h",
+		"core/timestep/timestep_view.h",
 		"core/rgba.h"
 	],
 	"hasConstructor": true,
