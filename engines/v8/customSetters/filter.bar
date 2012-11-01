@@ -1,9 +1,10 @@
 v8::Local<Object> filterObject = value->ToObject();
 if (filterObject->IsObject()) {
-	String::Utf8Value color_value_str(filterObject->Get(String::New("color"))->ToString());
-	const char *color_str = ToCString(color_value_str);
 	filter f;
-	rgba_parse(&f.color, color_str);
+	f.color.r = filterObject->Get(String::New("r"))->ToNumber()->Value() / 255.f;
+	f.color.g = filterObject->Get(String::New("g"))->ToNumber()->Value() / 255.f;
+	f.color.b = filterObject->Get(String::New("b"))->ToNumber()->Value() / 255.f;
+	f.color.a = filterObject->Get(String::New("a"))->ToNumber()->Value();
 	f.type = filterObject->Get(String::New("type"))->ToInt32()->Value();
 	obj->{cName} = f;
 }
