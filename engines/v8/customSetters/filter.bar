@@ -1,0 +1,9 @@
+v8::Local<Object> filterObject = value->ToObject();
+if (filterObject->IsObject()) {
+	String::Utf8Value color_value_str(filterObject->Get(String::New("color"))->ToString());
+	const char *color_str = ToCString(color_value_str);
+	filter f;
+	rgba_parse(&f.color, color_str);
+	f.type = filterObject->Get(String::New("type"))->ToInt32()->Value();
+	obj->{cName} = f;
+}

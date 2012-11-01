@@ -1,0 +1,7 @@
+{.type} prop = obj->{.cName};
+v8::Local<Object> filterObj;
+char buf[64];
+rgba_to_string(&prop.color, buf);
+filterObj->Set(String::New("color"), String::New(buf));
+filterObj->Set(String::New("type"), v8::Number::New(prop.type));
+return filterObj;
