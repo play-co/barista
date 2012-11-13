@@ -1,2 +1,1 @@
-JSString *str = JS_NewString(cx, strdup(obj->{.name}), strlen(obj->{name}));
-JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(str));
+JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(JS_NewStringCopyZ(cx, obj->{.name})));
