@@ -1,5 +1,5 @@
 {#methods obj_name=name}
-JSBool def_{name}_{.name}(JSContext *cx, unsigned argc, jsval *vp);
+CEXPORT JSBool def_{name}_{.name}(JSContext *cx, unsigned argc, jsval *vp);
 {/methods}
 static JSFunctionSpec functions[] = {
 	{#methods obj_name=name}

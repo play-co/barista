@@ -1,7 +1,7 @@
 #define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT)
 {#properties obj_name=name}
-JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
-JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
+CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
+CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
 {/properties}
 static JSPropertySpec properties[] = {
 	{#properties obj_name=name}

@@ -10,8 +10,8 @@
 {autoProperties}
 {properties}
 {methods}
-JSBool def_{name}_class_constructor(JSContext *cx, unsigned argc, jsval *vp);
-void def_{name}_class_finalize(JSFreeOp *fop, JSObject *obj);
+CEXPORT JSBool def_{name}_class_constructor(JSContext *cx, unsigned argc, jsval *vp);
+CEXPORT void def_{name}_class_finalize(JSFreeOp *fop, JSObject *obj);
  
 static JSClass {name}_class = {
 	"{jsName}",
