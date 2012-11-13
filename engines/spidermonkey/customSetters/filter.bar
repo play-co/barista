@@ -1,4 +1,11 @@
-if (JSVAL_IS_OBJECT(*vp)) {
+filter f;
+if (JSVAL_IS_NULL(*vp) || JSVAL_IS_VOID(*vp)) {
+	f.color.r = 0;
+	f.color.g = 0;
+	f.color.b = 0;
+	f.color.a = 0;
+	f.type = 0;
+} else if (JSVAL_IS_OBJECT(*vp)) {
 	JSObject * filterObject = JSVAL_TO_OBJECT(*vp);
 	filter f;
 	jsval colorVal;
@@ -24,6 +31,5 @@ if (JSVAL_IS_OBJECT(*vp)) {
 	JS_GetProperty(cx, filterObject, "type", &typeVal);
 	JS_ValueToNumber(cx, typeVal, &type);
 	f.type = (int) type;
-
-	obj->{cName} = f;
 }
+obj->{cName} = f;
