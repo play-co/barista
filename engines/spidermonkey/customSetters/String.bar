@@ -3,9 +3,9 @@ if (vp.isString()) {
 
 	JSTR_TO_CSTR_PERSIST(cx, jstr, cstr);
 
-	if (obj->{name}) {
-		free(obj->{name});
+	if (thiz->{name}) {
+		free(thiz->{name});
 	}
 
-	obj->{name} = cstr;
+	thiz->{name} = cstr;
 }

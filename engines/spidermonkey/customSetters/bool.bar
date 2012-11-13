@@ -1,1 +1,1 @@
-obj->{.cName} = vp.toBoolean();
+thiz->{.cName} = vp.toBoolean();

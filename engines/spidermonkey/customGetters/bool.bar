@@ -1,1 +1,1 @@
-vp.setBoolean(obj->{.cName});
+vp.setBoolean(thiz->{.cName});

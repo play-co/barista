@@ -1,1 +1,1 @@
-vp.setString(JS_NewStringCopyZ(cx, obj->{.cName}));
+vp.setString(JS_NewStringCopyZ(cx, thiz->{.cName}));

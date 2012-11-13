@@ -1,4 +1,4 @@
-rgba prop = obj->{.cName};
+rgba prop = thiz->{.cName};
 
 char buf[64];
 int len = rgba_to_string(&prop, buf);

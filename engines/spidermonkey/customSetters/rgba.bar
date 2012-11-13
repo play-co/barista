@@ -5,5 +5,5 @@ if (vp.isString()) {
 
 	rgba color;
 	rgba_parse(&color, cstr);
-	obj->{cName} = color;
+	thiz->{cName} = color;
 }

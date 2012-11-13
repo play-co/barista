@@ -2,11 +2,11 @@
 {#.userGetter}
 {:else}
 static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
-	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(obj);
+	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	{#customGetter}
 	{.}
 	{:else}
-	vp.set{.jsType}(obj->{.cName});
+	vp.set{.jsType}(thiz->{.cName});
 	{/customGetter}
 	return JS_TRUE;
 }
@@ -16,11 +16,11 @@ static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHa
 {:else}
 	
 static JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
-	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(obj);
+	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	{#customSetter}
 	{.}
 	{:else}
-	obj->{cName} = vp.get{.jsType}();
+	thiz->{cName} = vp.to{.jsType}();
 	{/customSetter}
 	return JS_TRUE;
 }

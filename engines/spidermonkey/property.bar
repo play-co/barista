@@ -1,4 +1,4 @@
-#define _PROPERTY_FLAGS (JSPROP_ENUMERATE)
+#define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT)
 {#properties obj_name=name}
 JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
 JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
@@ -8,7 +8,7 @@ static JSPropertySpec properties[] = {
 		{
 			"{name}", 
 			0, 
-			_PROPERTY_FLAGS,
+			BAR_PROPERTY_FLAGS,
 			JSOP_WRAPPER(def_{obj_name}_get_{.name}),
 			JSOP_WRAPPER(def_{obj_name}_set_{.name})
 		},
