@@ -1,7 +1,8 @@
 if (JSVAL_IS_STRING(*vp)) {
-	JSString *js_str = JSVAL_TO_STRING(*vp);
-	const char *str = JS_GetStringBytesZ(cx, js_str);
+	JSString *jstr = JSVAL_TO_STRING(*vp);
+	JSTR_TO_CSTR(cx, jstr, cstr);
+
 	rgba color;
-	rgba_parse(&color, str);
+	rgba_parse(&color, cstr);
 	obj->{cName} = color;
 }
