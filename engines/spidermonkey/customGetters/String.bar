@@ -1,1 +1,1 @@
-JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(JS_NewStringCopyZ(cx, obj->{.name})));
+vp.setString(JS_NewStringCopyZ(cx, obj->{.cName}));

@@ -1,1 +1,1 @@
-obj->{.cName} = JSVAL_TO_BOOLEAN(*vp);
+obj->{.cName} = vp.toBoolean();

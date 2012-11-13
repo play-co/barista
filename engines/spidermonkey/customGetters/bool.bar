@@ -1,1 +1,1 @@
-JS_SET_RVAL(cx, vp, BOOLEAN_TO_JSVAL(obj->{.cName}));
+vp.setBoolean(obj->{.cName});

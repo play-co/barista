@@ -1,4 +1,6 @@
-{.type} prop = obj->{.cName};
+rgba prop = obj->{.cName};
+
 char buf[64];
 int len = rgba_to_string(&prop, buf);
-JS_SET_RVAL(cx, vp, STRING_TO_JSVAL(JS_NewStringCopyN(cx, buf, len)));
+
+vp.setString(JS_NewStringCopyN(cx, buf, len)));

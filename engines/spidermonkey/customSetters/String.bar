@@ -1,5 +1,6 @@
-if (JSVAL_IS_STRING(*vp)) {
-	JSString *jstr = JSVAL_TO_STRING(*vp);
+if (vp.isString()) {
+	JSString *jstr = vp.toString();
+
 	JSTR_TO_CSTR_PERSIST(cx, jstr, cstr);
 
 	if (obj->{name}) {
