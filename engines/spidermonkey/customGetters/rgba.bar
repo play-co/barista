@@ -3,4 +3,4 @@ rgba prop = thiz->{.cName};
 char buf[64];
 int len = rgba_to_string(&prop, buf);
 
-vp.setString(JS_NewStringCopyN(cx, buf, len)));
+vp.setString(JS_NewStringCopyN(cx, buf, len));
