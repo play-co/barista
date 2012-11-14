@@ -1,19 +1,4 @@
-#define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT)
 {#properties obj_name=name}
-CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
-CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
+JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
+JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
 {/properties}
-static JSPropertySpec properties[] = {
-	{#properties obj_name=name}
-		{
-			"{name}", 
-			0, 
-			BAR_PROPERTY_FLAGS,
-			JSOP_WRAPPER(def_{obj_name}_get_{.name}),
-			JSOP_WRAPPER(def_{obj_name}_set_{.name})
-		},
-	{/properties}
-	{0}
-};
-
-#undef _PROPERTY_FLAGS

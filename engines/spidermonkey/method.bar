@@ -1,16 +1,2 @@
-{#methods obj_name=name}
-CEXPORT JSBool def_{name}_{.name}(JSContext *cx, unsigned argc, jsval *vp);
+{#methods obj_name=name}JSBool def_{obj_name}_{.name}(JSContext *cx, unsigned argc, jsval *vp);
 {/methods}
-static JSFunctionSpec functions[] = {
-	{#methods obj_name=name}
-		{
-			"{.name}", 
-			(JSNative)def_{obj_name}_{.name},
-			{.argCount},
-			FUNCTION_FLAGS,
-			0
-		},
-	{/methods}
-		{0}
-};
-

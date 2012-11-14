@@ -1,7 +1,7 @@
 {#autoProperties obj_name=name}
 {#.userGetter}
 {:else}
-static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
+CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	{#customGetter}
 	{.}
@@ -14,8 +14,7 @@ static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHa
 
 {#.userSetter}
 {:else}
-	
-static JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
+CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	{#customSetter}
 	{.}
