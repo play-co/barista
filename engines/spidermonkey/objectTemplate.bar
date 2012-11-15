@@ -15,7 +15,7 @@
 
 {propertyArray}
 
-static JSClass {name}_class = {
+static const JSClass {name}_class = {
 	"{jsName}",
 	JSCLASS_HAS_PRIVATE,
 	JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_StrictPropertyStub,
@@ -25,6 +25,6 @@ static JSClass {name}_class = {
 
 CEXPORT void {name}_add_to_object(JSObject *parent) {
 	JSContext *cx = get_js_context();
-	JS_InitClass(cx, parent, NULL, &{name}_class, def_{name}_class_constructor,
-		{constructorArgc}, properties, functions, NULL, NULL);
+	JS_InitClass(cx, parent, NULL, (JSClass*)&{name}_class, def_{name}_class_constructor,
+		{constructorArgc}, (JSPropertySpec *)properties, (JSFunctionSpec *)functions, NULL, NULL);
 }
