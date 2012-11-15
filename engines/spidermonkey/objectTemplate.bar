@@ -19,12 +19,12 @@ static JSClass {name}_class = {
 	"{jsName}",
 	JSCLASS_HAS_PRIVATE,
 	JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_StrictPropertyStub,
-	JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub,
-	def_{name}_class_finalize
+	JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub, def_{name}_class_finalize,
+	JSCLASS_NO_OPTIONAL_MEMBERS
 };
 
 CEXPORT void {name}_add_to_object(JSObject *parent) {
 	JSContext *cx = get_js_context();
 	JS_InitClass(cx, parent, NULL, &{name}_class, def_{name}_class_constructor,
-	{constructorArgc}, properties, functions, NULL, NULL);
+		{constructorArgc}, properties, functions, NULL, NULL);
 }
