@@ -23,6 +23,10 @@ static const JSClass {name}_class = {
 	JSCLASS_NO_OPTIONAL_MEMBERS
 };
 
+CEXPORT JSObject *{name}_create_ctor_object(JSContext *cx, jsval *vp) {
+	return JS_NewObjectForConstructor(cx, (JSClass*)&{name}_class, vp);
+}
+
 CEXPORT void {name}_add_to_object(JSObject *parent) {
 	JSContext *cx = get_js_context();
 	JS_InitClass(cx, parent, NULL, (JSClass*)&{name}_class, def_{name}_class_constructor,

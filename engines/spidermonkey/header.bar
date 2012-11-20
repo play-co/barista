@@ -9,6 +9,7 @@ extern "C" {
 #endif
 
 // Defined in js_{name}_template.gen.cpp
+JSObject *{name}_create_ctor_object(JSContext *cx, jsval *vp);
 void {name}_add_to_object(JSObject *obj);
 
 // Ctors: To be defined by manually-generated code:
