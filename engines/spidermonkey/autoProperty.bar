@@ -3,11 +3,13 @@
 {:else}
 CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
-	{#customGetter}
-	{.}
-	{:else}
-	vp.set{.jsType}(thiz->{.cName});
-	{/customGetter}
+	if (thiz) {
+		{#customGetter}
+		{.}
+		{:else}
+		vp.set{.jsType}(thiz->{.cName});
+		{/customGetter}
+	}
 	return JS_TRUE;
 }
 {/.userGetter}
@@ -16,11 +18,13 @@ CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSH
 {:else}
 CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
-	{#customSetter}
-	{.}
-	{:else}
-	thiz->{cName} = vp.to{.jsType}();
-	{/customSetter}
+	if (thiz) {
+		{#customSetter}
+		{.}
+		{:else}
+		thiz->{cName} = vp.to{.jsType}();
+		{/customSetter}
+	}
 	return JS_TRUE;
 }
 {/.userSetter}
