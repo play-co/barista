@@ -1,4 +1,4 @@
-#define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT)
+#define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_GETTER | JSPROP_SETTER)
 
 static const JSPropertySpec properties[] = {
 	{#properties obj_name=name}{ "{name}", 0, BAR_PROPERTY_FLAGS,
