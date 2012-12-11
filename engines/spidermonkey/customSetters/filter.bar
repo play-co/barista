@@ -1,0 +1,35 @@
+filter f;
+if (JSVAL_IS_NULL(*vp) || JSVAL_IS_VOID(*vp)) {
+	f.color.r = 0;
+	f.color.g = 0;
+	f.color.b = 0;
+	f.color.a = 0;
+	f.type = 0;
+} else if (JSVAL_IS_OBJECT(*vp)) {
+	JSObject * filterObject = JSVAL_TO_OBJECT(*vp);
+	filter f;
+	jsval colorVal;
+	double r, g, b, a, type;
+	//r
+	JS_GetProperty(cx, filterObject, "r", &colorVal);
+	JS_ValueToNumber(cx, colorVal, &r);
+	f.color.r = r / 255.f;
+	//g
+	JS_GetProperty(cx, filterObject, "g", &colorVal);
+	JS_ValueToNumber(cx, colorVal, &g);
+	f.color.g = g / 255.f;
+	//b
+	JS_GetProperty(cx, filterObject, "b", &colorVal);
+	JS_ValueToNumber(cx, colorVal, &b);
+	f.color.b = b / 255.f;
+	//a
+	JS_GetProperty(cx, filterObject, "a", &colorVal);
+	JS_ValueToNumber(cx, colorVal, &a);
+	f.color.a = a;
+
+	jsval typeVal;
+	JS_GetProperty(cx, filterObject, "type", &typeVal);
+	JS_ValueToNumber(cx, typeVal, &type);
+	f.type = (int) type;
+}
+obj->{cName} = f;

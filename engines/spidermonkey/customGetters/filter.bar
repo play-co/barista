@@ -1,0 +1,19 @@
+{.type} prop = obj->{.cName};
+JSObject *filterObject = JS_NewObject(cx, NULL, NULL, NULL);
+jsval r, g, b, a, type;
+//r
+JS_NewNumberValue(cx, (char)(prop.color.r * 255.f), &r);
+JS_SetProperty(cx, filterObject, "r", &r); 
+//g
+JS_NewNumberValue(cx, (char)(prop.color.g * 255.f), &g);
+JS_SetProperty(cx, filterObject, "g", &g); 
+//b
+JS_NewNumberValue(cx, (char)(prop.color.b * 255.f), &b);
+JS_SetProperty(cx, filterObject, "b", &b); 
+//a
+JS_NewNumberValue(cx, prop.color.a, &a);
+JS_SetProperty(cx, filterObject, "a", &a); 
+//type
+JS_NewNumberValue(cx, prop.type, &type);
+JS_SetProperty(cx, filterObject, "type", &type); 
+JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(filterObject));

@@ -1,0 +1,26 @@
+if (value->IsUndefined() || value->IsNull()) {
+		filter f;
+		f.color.r = 0.0f;
+		f.color.g = 0.0f;
+		f.color.b = 0.0f;
+		f.color.a = 0.0f;
+		f.type = 0;
+		obj->{cName} = f;
+} else if (value->IsObject()) {
+		v8::Local<Object> filterObject = value->ToObject();
+		filter f;
+		f.color.r = filterObject->Get(String::New("r"))->ToNumber()->Value() / 255.f;
+		f.color.g = filterObject->Get(String::New("g"))->ToNumber()->Value() / 255.f;
+		f.color.b = filterObject->Get(String::New("b"))->ToNumber()->Value() / 255.f;
+		f.color.a = filterObject->Get(String::New("a"))->ToNumber()->Value();
+		f.type = filterObject->Get(String::New("type"))->ToInt32()->Value();
+		obj->{cName} = f;
+} else {
+		filter f;
+		f.color.r = 0.0f;
+		f.color.g = 0.0f;
+		f.color.b = 0.0f;
+		f.color.a = 0.0f;
+		f.type = 0;
+		obj->{cName} = f;
+}
