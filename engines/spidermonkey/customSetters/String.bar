@@ -1,10 +1,11 @@
-if (JSVAL_IS_STRING(*vp)) {
-	JSString *js_str = JSVAL_TO_STRING(*vp);
-	const char *str = JS_GetStringBytesZ(cx, js_str);
-	if (str != obj->{name}) {
-		if (obj->{name}) {
-			free(obj->{name});
-		}
-		obj->{name} = strdup(str);
+if (vp.isString()) {
+	JSString *jstr = vp.toString();
+
+	JSTR_TO_CSTR_PERSIST(cx, jstr, cstr);
+
+	if (thiz->{name}) {
+		free(thiz->{name});
 	}
+
+	thiz->{name} = cstr;
 }

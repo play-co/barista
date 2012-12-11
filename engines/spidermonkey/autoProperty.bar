@@ -1,31 +1,34 @@
 {#autoProperties obj_name=name}
 {#.userGetter}
 {:else}
-static JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSObject *thiz, jsid idval, jsval *vp) {
-	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(cx, thiz);
-	{#customGetter}
-	{.}
-	{:else}
-	{.type} prop = obj->{.cName};
-	jsval val = {.TYPE}_TO_JSVAL(prop);
-	JS_SET_RVAL(cx, vp, val);
-	{/customGetter}
+CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
+	JS_BeginRequest(cx);
+	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
+	if (thiz) {
+		{#customGetter}
+		{.}
+		{:else}
+		vp.set{.jsType}(thiz->{.cName});
+		{/customGetter}
+	}
+	JS_EndRequest(cx);
 	return JS_TRUE;
 }
 {/.userGetter}
 
 {#.userSetter}
 {:else}
-	
-static JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSObject *thiz, jsid idval, jsval *vp) {
-	{obj_name} *obj = ({obj_name}*)JS_GetPrivate(cx, thiz);
-	{#customSetter}
-	{.}
-	{:else}
-		js{type} val;
-		JS_ValueTo{.jsType}(cx, *vp, &val);
-		obj->{cName} = val;
-	{/customSetter}
+CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
+	JS_BeginRequest(cx);
+	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
+	if (thiz) {
+		{#customSetter}
+		{.}
+		{:else}
+		thiz->{cName} = vp.to{.jsType}();
+		{/customSetter}
+	}
+	JS_EndRequest(cx);
 	return JS_TRUE;
 }
 {/.userSetter}

@@ -1,0 +1,8 @@
+
+static const JSFunctionSpec functions[] = {
+	{#methods obj_name=name}
+		JS_FN("{.name}", def_{obj_name}_{.name}, {.argCount}, FUNCTION_FLAGS),
+	{/methods}
+		JS_FS_END
+};
+
