@@ -1,38 +1,34 @@
 #include "js_{name}_template.gen.h"
 #include "js/js_{name}.h"
+
 {#headers}
 #include "{.}"
 {/headers}
 {#templateNames}
+
 #include "js_{.}_template.gen.h"{/templateNames}
 #include "js/js_core.h"
 
 {autoProperties}
-{properties}
-{methods}
-JSBool def_{name}_class_constructor(JSContext *cx, JSObject *thiz, uintN argc, jsval *argv, jsval *rval);
-void def_{name}_class_finalize(JSContext *cx, JSObject *obj);
- 
-static JSClass {name}_class = {
+
+{methodArray}
+
+{propertyArray}
+
+static const JSClass {name}_class = {
 	"{jsName}",
 	JSCLASS_HAS_PRIVATE,
-	JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_PropertyStub,
-	JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub,
-	def_{name}_class_finalize,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL,
-	NULL
+	JS_PropertyStub, JS_PropertyStub, JS_PropertyStub, JS_StrictPropertyStub,
+	JS_EnumerateStub, JS_ResolveStub, JS_ConvertStub, def_{name}_class_finalize,
+	JSCLASS_NO_OPTIONAL_MEMBERS
 };
 
+CEXPORT JSObject *{name}_create_ctor_object(JSContext *cx, jsval *vp) {
+	return JS_NewObjectForConstructor(cx, (JSClass*)&{name}_class, vp);
+}
 
 CEXPORT void {name}_add_to_object(JSObject *parent) {
 	JSContext *cx = get_js_context();
-	JS_InitClass(cx, parent, NULL, &{name}_class, def_{name}_class_constructor,
-	{constructorArgc}, properties, functions, NULL, NULL);
-
+	JS_InitClass(cx, parent, NULL, (JSClass*)&{name}_class, def_{name}_class_constructor,
+		{constructorArgc}, (JSPropertySpec *)properties, (JSFunctionSpec *)functions, NULL, NULL);
 }

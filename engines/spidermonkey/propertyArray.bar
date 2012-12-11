@@ -1,0 +1,10 @@
+#define BAR_PROPERTY_FLAGS (JSPROP_ENUMERATE | JSPROP_PERMANENT | JSPROP_SHARED)
+
+static const JSPropertySpec properties[] = {
+	{#properties obj_name=name}{ "{name}", 0, BAR_PROPERTY_FLAGS,
+		JSOP_WRAPPER(def_{obj_name}_get_{.name}), JSOP_WRAPPER(def_{obj_name}_set_{.name}) },
+	{/properties}
+	{0}
+};
+
+#undef BAR_PROPERTY_FLAGS

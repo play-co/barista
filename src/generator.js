@@ -147,7 +147,9 @@ var normalizeProperties = function(desc) {
 
 var defaultContents = {
 	methods: [],
+	methodArray: [],
 	properties: [],
+	propertyArray: [],
 	autoProperties: []
 };
 /*
@@ -357,8 +359,10 @@ var autoProperties = function(engine, desc) {
 var objectTemplate = function(engine, desc, cb) {
 	async.parallel({
 		methods: render('method', desc),
+		methodArray: render('methodArray', desc),
 		autoProperties: autoProperties(engine, desc),
 		properties: render('property', desc),
+		propertyArray: render('propertyArray', desc),
 		templates: render('template', desc)
 	},
 	function(err, results) {
