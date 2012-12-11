@@ -1,12 +1,12 @@
 filter f;
-if (JSVAL_IS_NULL(*vp) || JSVAL_IS_VOID(*vp)) {
+if (JSVAL_IS_NULL(vp) || JSVAL_IS_VOID(vp)) {
 	f.color.r = 0;
 	f.color.g = 0;
 	f.color.b = 0;
 	f.color.a = 0;
 	f.type = 0;
-} else if (JSVAL_IS_OBJECT(*vp)) {
-	JSObject * filterObject = JSVAL_TO_OBJECT(*vp);
+} else if (JSVAL_IS_OBJECT(vp)) {
+	JSObject * filterObject = JSVAL_TO_OBJECT(vp);
 	filter f;
 	jsval colorVal;
 	double r, g, b, a, type;
@@ -32,4 +32,4 @@ if (JSVAL_IS_NULL(*vp) || JSVAL_IS_VOID(*vp)) {
 	JS_ValueToNumber(cx, typeVal, &type);
 	f.type = (int) type;
 }
-obj->{cName} = f;
+thiz->{cName} = f;
