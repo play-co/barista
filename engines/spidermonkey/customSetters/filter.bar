@@ -7,7 +7,6 @@ if (JSVAL_IS_NULL(vp) || JSVAL_IS_VOID(vp)) {
 	f.type = 0;
 } else if (JSVAL_IS_OBJECT(vp)) {
 	JSObject * filterObject = JSVAL_TO_OBJECT(vp);
-	filter f;
 	jsval colorVal;
 	double r, g, b, a, type;
 	//r
