@@ -14,9 +14,9 @@ var argv = require('optimist')
 	.string('e')
 	.alias('c', 'create')
 	.describe('c', 'create templates for a new engine')
-	.string('o')
-	.alias('o', 'output')
-	.describe('o', 'directory in which to place the generated source files')
+	.string('w')
+	.alias('w', 'where')
+	.describe('w', 'directory in which to place the generated source files')
 	.argv;
 
 
@@ -24,7 +24,7 @@ if (argv.c) {
 	require('../src/engine').create(argv.e);
 } else {
 	var files = argv._;
-	var outputDir = argv.o || '.';
+	var outputDir = argv.w || '.';
 	if (!files.length) {
 		console.log('missing object description files');
 		process.exit(1);
