@@ -1,7 +1,7 @@
 {#autoProperties obj_name=name}
 {#.userGetter}
 {:else}
-v8::Handle<v8::Value> {obj_name}_get_{.name}(v8::Local<v8::String> property, const v8::AccessorInfo &info) {
+v8::Handle<v8::Value> {obj_name}_get_{.name}(v8::Local<v8::String> property, const v8::AccessorInfo &info) {~lb}
 	//LOG("in {obj_name} get {name}");
 	v8::Local<v8::Object> thiz = info.Holder();
 	{obj_name} *obj = ({obj_name}*) v8::Local<v8::External>::Cast(thiz->GetInternalField(0))->Value();
@@ -12,12 +12,12 @@ v8::Handle<v8::Value> {obj_name}_get_{.name}(v8::Local<v8::String> property, con
 	//LOG("done in {obj_name} get {name}");
 	return v8::{.jsType}::New(prop);
 	{/customGetter}
-}
+{~rb}
 {/userGetter}
 
 {#.userSetter}
 {:else}
-void {obj_name}_set_{name}(v8::Local<v8::String> property, v8::Local<v8::Value> value, const v8::AccessorInfo &info) {
+void {obj_name}_set_{name}(v8::Local<v8::String> property, v8::Local<v8::Value> value, const v8::AccessorInfo &info) {~lb}
 	//LOG("in {obj_name} set {name}");
 	v8::Local<v8::Object> thiz = info.Holder();
 	{obj_name} *obj = ({obj_name}*) v8::Local<v8::External>::Cast(thiz->GetInternalField(0))->Value();
@@ -27,6 +27,6 @@ void {obj_name}_set_{name}(v8::Local<v8::String> property, v8::Local<v8::Value> 
 	obj->{cName} = value->To{.jsType}()->Value();
 	{/customSetter}
 	//LOG("done in {obj_name} set {name}");
-}
+{~rb}
 {/userSetter}
 {/autoProperties}
