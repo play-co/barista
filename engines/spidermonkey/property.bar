@@ -1,4 +1,4 @@
 {#properties obj_name=name}
-JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp);
-JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp);
+bool def_{obj_name}_get_{.name}(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp);
+bool def_{obj_name}_set_{.name}(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp);
 {/properties}

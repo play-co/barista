@@ -1,7 +1,7 @@
 {#autoProperties obj_name=name}
 {#.userGetter}
 {:else}
-CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSMutableHandleValue vp) {
+CEXPORT bool def_{obj_name}_get_{.name}(JSContext *cx, JS::HandleObject obj, JS::HandleId id, JS::MutableHandleValue vp) {
 	JS_BeginRequest(cx);
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	if (thiz) {
@@ -12,13 +12,13 @@ CEXPORT JSBool def_{obj_name}_get_{.name}(JSContext *cx, JSHandleObject obj, JSH
 		{/customGetter}
 	}
 	JS_EndRequest(cx);
-	return JS_TRUE;
+	return true;
 }
 {/.userGetter}
 
 {#.userSetter}
 {:else}
-CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSHandleId id, JSBool strict, JSMutableHandleValue vp) {
+CEXPORT bool def_{obj_name}_set_{.name}(JSContext *cx, JS::HandleObject obj, JS::HandleId id, bool strict, JS::MutableHandleValue vp) {
 	JS_BeginRequest(cx);
 	{obj_name} *thiz = ({obj_name}*)JS_GetPrivate(obj.get());
 	if (thiz) {
@@ -29,7 +29,7 @@ CEXPORT JSBool def_{obj_name}_set_{.name}(JSContext *cx, JSHandleObject obj, JSH
 		{/customSetter}
 	}
 	JS_EndRequest(cx);
-	return JS_TRUE;
+	return true;
 }
 {/.userSetter}
 {/autoProperties}
