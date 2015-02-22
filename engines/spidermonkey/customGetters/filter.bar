@@ -1,0 +1,19 @@
+{.type} prop = thiz->{.cName};
+JSObject *filterObject = JS_NewObject(cx, NULL, NULL, NULL);
+jsval r, g, b, a, type;
+//r
+r = DOUBLE_TO_JSVAL((char)(prop.color.r * 255.f));
+JS_SetProperty(cx, filterObject, "r", &r); 
+//g
+g = DOUBLE_TO_JSVAL((char)(prop.color.g * 255.f));
+JS_SetProperty(cx, filterObject, "g", &g); 
+//b
+b = DOUBLE_TO_JSVAL((char)(prop.color.b * 255.f));
+JS_SetProperty(cx, filterObject, "b", &b); 
+//a
+a = DOUBLE_TO_JSVAL(prop.color.a);
+JS_SetProperty(cx, filterObject, "a", &a); 
+//type
+type = DOUBLE_TO_JSVAL(prop.type);
+JS_SetProperty(cx, filterObject, "type", &type);
+vp.setObject(*filterObject);

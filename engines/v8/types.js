@@ -24,5 +24,6 @@ exports.types = {
     'float': 'Number',
     'char*': 'String',
     'char *': 'String',
-    'rgba': 'String'
+    'rgba': 'String',
+    'filter': 'Object'
 };
